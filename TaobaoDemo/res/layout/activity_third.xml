@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ThirdActivity" >
+
+    <EditText
+        android:id="@+id/edit_numner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginTop="30dp"
+        android:phoneNumber="true"
+        android:hint="请输入要购买的数量"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+        android:id="@+id/ima_3"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_below="@+id/edit_numner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/meinv2" />
+
+    <TextView
+        android:id="@+id/text_3_dsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ima_3"
+        android:layout_below="@+id/ima_3"
+        android:layout_marginTop="55dp"
+        android:text="商品的详细信息"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/ima_3"
+        android:src="@drawable/contacts" />
+
+    <TextView
+        android:id="@+id/text_3_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignParentRight="true"
+        android:text="商品数量" />
+
+    <TextView
+        android:id="@+id/text_3_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_3_dsc"
+        android:layout_below="@+id/text_3_dsc"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="26dp"
+        android:text="商品价格" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_3_price"
+        android:layout_below="@+id/text_3_price"
+        android:layout_marginTop="19dp"
+        android:onClick="third_click"
+        android:text="提交" />
+
+</RelativeLayout>

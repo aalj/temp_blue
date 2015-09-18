@@ -1,0 +1,43 @@
+/**
+ * AlarmReceiver.java
+ * com.aalj35.aa11.Receiver
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年8月28日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.Receiver;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+/**
+ * ClassName:AlarmReceiver
+ * Function: TODO ADD FUNCTION
+ * Reason:	 TODO ADD REASON
+ *
+ * @author   view
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2015年8月28日		上午10:22:54
+ *
+ * @see 	 
+
+ */
+public class AlarmReceiver extends BroadcastReceiver {
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+
+		// TODO Auto-generated method stub
+
+	}
+
+}
+

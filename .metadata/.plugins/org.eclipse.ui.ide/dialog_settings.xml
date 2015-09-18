@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="true" key="TOGGLE_SELECTED"/>
+		<item value="391" key="DIALOG_HEIGHT"/>
+		<item value="433" key="DIALOG_X_ORIGIN"/>
+		<item value="109" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="L:\Bluetooth2"/>
+			<item value="L:\Blu"/>
+			<item value="G:\重要资料\商务助手\iAgent商务助手"/>
+			<item value="L:\zheng\SwipeMenuListView"/>
+			<item value="L:\zheng"/>
+			<item value="G:\abdroid程序源码\51CTO下载-Android示例大全（从培训到工作所有的例子）\example\画图"/>
+			<item value="H:\sbq1"/>
+			<item value="L:\sbq"/>
+			<item value="L:\Huabu"/>
+			<item value="G:\abdroid程序源码\ArcMenu"/>
+			<item value="G:\abdroid程序源码\android-flip-master"/>
+			<item value="L:\ImageBrowser"/>
+			<item value="L:\ProvinceAndCity"/>
+			<item value="L:\login"/>
+			<item value="G:\各类比赛资料\蓝牙传输\NewBluetooth"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+</section>

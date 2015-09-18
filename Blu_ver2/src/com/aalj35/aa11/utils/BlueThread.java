@@ -1,0 +1,107 @@
+/**
+ * BlueThread.java
+ * com.aalj35.aa11.utils
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年9月1日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.utils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import com.aalj35.aa11.mystart.Changliang;
+
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
+import android.os.Message;
+
+/**
+ * ClassName:BlueThread Function: TODO ADD FUNCTION Reason: TODO ADD REASON
+ *
+ * @author view
+ * @version
+ * @since Ver 1.1
+ * @Date 2015年9月1日 下午3:23:33
+ *
+ * @see
+ * 
+ */
+public class BlueThread extends Thread {
+	BluetoothAdapter bluetoothAdapter = null;
+	BluetoothDevice bluetoothDevice = null;
+	BluetoothSocket bluetoothSocket = null;
+	public static String recvData = null;
+	public static BluetoothServerSocket bluetoothServerSocket = null;
+	private OutputStream os;
+	boolean exit = false;
+	public static boolean send_falg = false;
+	private InputStream is;
+	Handler handler = null;
+
+	public BlueThread() {
+		Changliang.flag_handler = false;
+		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		try {
+			// 此方法用来创建BluetoothServerSocket的对象
+			// 第一个参数表示蓝牙服务的名称，可以是任意字符串
+			// 第二个参数是UUID
+			bluetoothServerSocket = bluetoothAdapter.listenUsingRfcommWithServiceRecord(Changliang.NAME,
+					Changliang.MY_UUID);
+		} catch (IOException e) {
+
+		}
+	}
+
+	public void run() {
+
+		try {
+			// 通过BluetoothServerSocket.accept();方法收到客户端的请求后，
+			// accept()方法会返回一个BluetoothSocket对象，可以通过该对象获得读写数据的InputStream和OutputStream对象
+			// 等待接受蓝牙客户端的请求
+			bluetoothSocket = bluetoothServerSocket.accept();
+			String temp = null;
+			// 通过循环不断接收客户端发过来的数据。如果客户端暂时没发数据，则read方法处于阻塞状态
+			while (!exit) {
+				System.out.println("xunhuan");
+				is = bluetoothSocket.getInputStream();
+				os = bluetoothSocket.getOutputStream();
+				byte[] buffer = new byte[2048];
+				int count = is.read(buffer);
+
+				  recvData = new String(buffer, 0, count, "utf-8");
+				  if(recvData.equals(temp)){
+					  send_falg = true;
+				  }
+				  temp =recvData; 
+				if (Changliang.flag_handler) {
+
+					// 向消息机制里面发送数据
+					// message 发送消息的承载体
+					Message msg = Message.obtain();
+					// 发送消息的类型 obj表示 Object
+					msg.obj = recvData;
+					// 发送消息
+					if (handler != null) {
+						handler.sendMessage(msg);
+					}
+
+				}
+			}
+					  
+
+		} catch (Exception e) {
+
+	}
+	}
+}

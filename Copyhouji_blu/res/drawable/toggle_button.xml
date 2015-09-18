@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <selector xmlns:android="http://schemas.android.com/apk/res/android" >
+        <item
+            android:drawable="@drawable/on"
+            android:state_checked="true"/>
+ <!-- pressed -->
+        <item android:drawable="@drawable/offf"/>
+ <!-- default/unchecked -->
+    </selector>
+
+</animation-list>

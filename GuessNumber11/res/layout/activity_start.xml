@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/juqilai"
+    tools:context=".NormalActivity" >
+
+    <Button
+        android:id="@+id/btnScontinue"
+        android:layout_width="119dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/goonnwubaidi"
+        android:onClick="continueClick"
+        android:text="    "
+        android:textSize="35sp" />
+
+    <Button
+        android:id="@+id/btnSnew"
+        android:layout_width="119dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/btnScontinue"
+        android:layout_alignLeft="@+id/btnScontinue"
+        android:layout_marginBottom="51dp"
+        android:background="@drawable/startwubaidi"
+        android:onClick="startClick"
+        android:text="     "
+        android:textSize="35sp" />
+
+    <ToggleButton
+        android:id="@+id/tbMusic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:layout_marginRight="32dp"
+        android:layout_toLeftOf="@+id/btnRank"
+        android:background="@drawable/music_on"
+        android:checked="true"
+        android:textOff="音乐关"
+        android:textOn="音乐开"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnRank"
+        android:layout_width="119dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/tbMusic"
+        android:layout_alignLeft="@+id/btnScontinue"
+        android:layout_marginBottom="29dp"
+        android:background="@drawable/paihangbangwubaidi"
+        android:onClick="rankClick"
+        android:text="    "
+        android:textSize="35sp" />
+
+</RelativeLayout>

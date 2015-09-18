@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Blu_ver3/res/drawable-hdpi/b_1.png&apos; to &apos;b_1_1.png&apos;" description="Rename resource &apos;b_1.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/drawable-hdpi/b_1.png" name="b_1_1.png" stamp="1441108962788" updateReferences="true"/>
+</session>

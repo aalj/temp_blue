@@ -1,0 +1,117 @@
+package com.gem.huabu;
+//自定义画板
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceHolder.Callback;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnTouchListener;
+//callback为回调函数
+//OnTouchListener点击事件
+public class MyView extends SurfaceView implements Callback,OnTouchListener{
+	
+	
+	//创建画笔对象Paint，直接实例化
+	private Paint p=new Paint();
+	//创建Path路径，直接实例化
+	private Path path=new Path();
+	private Bitmap bitmap = null;
+	
+	public MyView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+		//使用SurfaceView要添加回调函数
+		getHolder().addCallback(this);
+		//初始化方法
+		p.setColor(Color.RED);
+		p.setTextSize(0);
+		//清理锯齿，曾强绘制效果
+		p.setAntiAlias(true);
+		p.setStyle(Style.STROKE);
+		//添加监听事件
+		 setOnTouchListener(this);
+		
+	}
+	
+	
+	public Bitmap getCanvas(){
+		if(bitmap!=null){
+			return bitmap;
+		}
+		return null;
+	}
+	//draw方法
+	public void draw(){
+		
+		  bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+		 Canvas canvas = new Canvas(bitmap);
+		
+		
+		
+		
+		//定义canvas画布，lockCanvas()方法锁定画布
+		canvas=getHolder().lockCanvas();
+		canvas.drawColor(Color.WHITE);
+		//通过drawPath进行绘制
+		canvas.drawPath(path, p);
+		//解锁画布
+		getHolder().unlockCanvasAndPost(canvas);
+		
+	}
+	//清理方法，专门清理画布 
+	public void clear(){
+		//清楚当前路径
+		path.reset();
+		//为了再次进行绘制，必须调用draw()方法
+		draw();
+	}
+	
+	
+	@Override
+	public void surfaceCreated(SurfaceHolder holder ) {
+		//调用方法的执行
+		draw();
+	}
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format,
+			int width,int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
+	}
+	//后添加的onTouch方法
+	@Override
+	public boolean onTouch (View v, MotionEvent event) {
+		//处理按下事件
+		//获取屏幕的x,y坐标
+		switch(event.getAction()){
+		case MotionEvent.ACTION_DOWN:
+			path.moveTo(event.getX(), event.getY());
+			draw();
+		break;
+		
+		//添加移动事件，在移动的时候通过lineTo方法绘制
+		case  MotionEvent.ACTION_MOVE:
+			path.lineTo(event.getX(), event.getY());
+			draw();
+			break;
+		
+		}
+	
+		return true;
+	}
+
+}

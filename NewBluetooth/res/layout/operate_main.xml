@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello World"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="今日活动量"
+        android:phoneNumber="true" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送" />
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="锁定" />
+
+    <Button
+        android:id="@+id/btn_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解锁" />
+
+    <Button
+        android:id="@+id/btn_shake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="震动" />
+
+    <Button
+        android:id="@+id/btn_Closeshake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消震动" />
+
+    <Button
+        android:id="@+id/btn_surplus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取手机电量" />
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="远程录音" />
+
+</LinearLayout>

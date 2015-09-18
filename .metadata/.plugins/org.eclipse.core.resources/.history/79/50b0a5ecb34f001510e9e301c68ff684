@@ -1,0 +1,31 @@
+/**
+ * JiTime.java
+ * com.aalj35.aa11.thread
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年8月31日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.thread;
+/**
+ * ClassName:JiTime
+ * Function: TODO ADD FUNCTION
+ * Reason:	 TODO ADD REASON
+ *
+ * @author   view
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2015年8月31日		下午3:41:35
+ *
+ * @see 	 
+
+ */
+public class JiTime extends Thread {
+
+}
+

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;SQLite_Activity.java&apos; to &apos;Blu_ver1/src/record.sqlite&apos;&#x0D;&#x0A;- Original project: &apos;Blu&apos;&#x0D;&#x0A;- Destination element: &apos;Blu_ver1/src/record.sqlite&apos;&#x0D;&#x0A;- Original element: &apos;record.sqlite.SQLite_Activity.java&apos;" description="Copy compilation unit" destination="=Blu_ver1/src&lt;record.sqlite" element1="/src&lt;record.sqlite{SQLite_Activity.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1441087851929" units="1" version="1.0"/>
+</session>

@@ -1,0 +1,59 @@
+/**
+ * HandlerSend.java
+ * com.aalj35.aa11.utils
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年9月1日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.utils;
+
+import android.os.Handler;
+import android.os.Message;
+
+/**
+ * ClassName:HandlerSend Function: TODO ADD FUNCTION Reason: TODO ADD REASON
+ *
+ * @author view
+ * @version
+ * @since Ver 1.1
+ * @Date 2015年9月1日 下午4:15:08
+ *
+ * @see
+ * 
+ */
+public class HandlerSend extends Thread {
+	Handler handler = null;
+
+	public HandlerSend(Handler handler) {
+		this.handler = handler;
+		
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			
+			while (BlueThread.send_falg) {
+				// 向消息机制里面发送数据
+				// message 发送消息的承载体
+				Message msg = Message.obtain();
+				// 发送消息的类型 obj表示 Object
+				msg.obj = BlueThread.recvData;
+				// 发送消息
+				if (handler != null) {
+					handler.sendMessage(msg);
+				}
+				super.run();
+				
+			}
+			
+		}
+	}
+
+}

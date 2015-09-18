@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <Button
+        android:id="@+id/isOpenBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="intentBlueTooth"
+        android:text="开启蓝牙" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="closeBlueTooth"
+        android:text="关闭蓝牙" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="searchBluetoothDevice"
+        android:text="搜索蓝牙设备" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="BluetoothSocket"
+        android:text="蓝牙传输" />
+
+</LinearLayout>

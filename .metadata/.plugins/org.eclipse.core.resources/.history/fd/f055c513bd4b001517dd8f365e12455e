@@ -1,0 +1,31 @@
+/**
+ * SendData.java
+ * com.aalj35.aa11.utils
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年8月26日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.utils;
+/**
+ * ClassName:SendData
+ * Function: TODO ADD FUNCTION
+ * Reason:	 TODO ADD REASON
+ *
+ * @author   view
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2015年8月26日		下午2:36:17
+ *
+ * @see 	 
+
+ */
+public class SendData {
+
+}
+

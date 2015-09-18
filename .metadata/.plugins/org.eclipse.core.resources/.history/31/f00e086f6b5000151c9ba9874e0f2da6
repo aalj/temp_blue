@@ -1,0 +1,619 @@
+package com.example.blu;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import com.aalj35.aa11.Receiver.InCallReceiver;
+import com.aalj35.aa11.mystart.Changliang;
+import com.aalj35.aa11.utils.SendData;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
+import android.app.admin.DevicePolicyManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SyncStatusObserver;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PowerManager;
+import android.os.Vibrator;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import record.sqlite.SQLite_Activity;
+import record.sqlite.SQlite;
+
+public class ThreeMainActivity extends Activity {
+	BluetoothAdapter bluetoothAdapter = null;
+	BluetoothDevice bluetoothDevice = null;
+	BluetoothSocket bluetoothSocket = null;
+	public static BluetoothServerSocket bluetoothServerSocket = null;
+	private OutputStream os;
+	boolean exit = false;
+
+	//
+	int stepnum = 0;
+	// 取回的数据值
+	String str = "";
+	/**
+	 * 作用需要查
+	 */
+	Calendar cal = Calendar.getInstance();
+	Vibrator vibrator = null;
+	/**
+	 * 关于闹铃的
+	 */
+	// private AlarmManager alarmManager=null;
+	/**
+	 * 用于显示电量
+	 */
+	private TextView text = null;
+	/**
+	 * 用于传送模拟的数据
+	 */
+	private EditText edit = null;
+	/**
+	 * 显示运动量
+	 */
+	TextView address = null;
+	/**
+	 * 获取电池电量的按钮
+	 */
+	Button battery = null;
+	/**
+	 * 获取手机闹铃的按钮
+	 */
+	Button alarm = null;
+	/**
+	 * 标识来电提醒的开关
+	 */
+
+	boolean call = false;
+	/**
+	 * 声明广播接收者
+	 */
+	private InCallReceiver inCallReceiver = null;
+	public static int currentIntent = 0;
+	int time = 0;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_three_main);
+		viewInit();
+		
+		
+	}
+
+	
+	
+	
+	public class Connnet extends Thread{
+		
+		@Override
+		public void run() {
+			try {
+				System.out.println("自动连接线程");
+				Thread.sleep(10000);
+				SendData.dataInit(Changliang.SHAKE);
+				System.out.println("连接线程结束");
+				
+			} catch (InterruptedException e) {
+				
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+			
+			super.run();
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * viewInit:(页面控件初始化)
+	 * 
+	 * @param 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
+	 */
+
+	private void viewInit() {
+		// 电话的广播接收者对象
+		inCallReceiver = new InCallReceiver();
+		// 动态注册闹铃广播
+		// IntentFilter fk
+		// 设置闹钟的按钮
+		alarm = (Button) findViewById(R.id.clock);
+		battery = (Button) findViewById(R.id.electric);
+		// 手机震动初始化
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		// 蓝牙管理适配器
+		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		//输入框用于模拟的到计步的数
+		edit = (EditText) findViewById(R.id.edit);
+		// 启动线程
+		new BlueThread().start();
+	}
+
+	/**
+	 * 
+	 * onclick:(按钮点击监听器) TODO(这里描述这个方法适用条件 – 可选) TODO(这里描述这个方法的执行流程 – 可选)
+	 * TODO(这里描述这个方法的使用方法 – 可选) TODO(这里描述这个方法的注意事项 – 可选)
+	 *
+	 * @param @param
+	 *            v 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
+	 */
+	public void onclick(View v) {
+
+		System.out.println("按钮已经点击");
+		switch (v.getId()) {
+		case R.id.data:
+			SendData.dataInit(Changliang.SEND);
+			break;
+		case R.id.incomming:// 来电提醒
+			Button button = (Button) findViewById(R.id.incomming);
+			IntentFilter intentFilter = new IntentFilter("android.intent.action.PHONE_STATE");
+			// 同一个按钮有实现两个功能
+			// 点击第一次是打开电话监听
+			// 点击第二吃是关闭电话监听
+			if (!call) {
+				ThreeMainActivity.this.registerReceiver(inCallReceiver, intentFilter);
+				button.setText("来电提醒：已开");
+				call = true;
+			} else {
+
+				ThreeMainActivity.this.unregisterReceiver(inCallReceiver);
+				button.setText("来电提醒：已闭");
+				call = false;
+			}
+			break;
+
+		case R.id.shake:// 震动
+			SendData.dataInit(Changliang.SHAKE);
+			break;
+		case R.id.cancalshake:// 取消震动
+			vibrator.cancel();
+			SendData.dataInit(Changliang.CANCALSHAKE);
+			break;
+		case R.id.lock:// 锁定
+
+			SendData.dataInit(Changliang.LOCK);
+			break;
+		case R.id.unlock:// 解锁
+
+			SendData.dataInit(Changliang.UNLOCK);
+			break;
+		case R.id.electric:// 获取电量
+
+			SendData.dataInit(Changliang.BATTERYNUM);
+			break;
+		case R.id.clock:// 设置闹钟
+			//弹出对话框设置时间
+			popdia();
+
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+	/**
+	 * 
+	 * popdia:(弹出框，设置计时) TODO(这里描述这个方法适用条件 – 可选) TODO(这里描述这个方法的执行流程 – 可选)
+	 * TODO(这里描述这个方法的使用方法 – 可选) TODO(这里描述这个方法的注意事项 – 可选)
+	 *
+	 * @param 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
+	 */
+	public void popdia() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(ThreeMainActivity.this);
+		builder.setIcon(R.drawable.ic_launcher);
+		builder.setTitle("设置计时的时间");
+
+		LayoutInflater inflater = LayoutInflater.from(ThreeMainActivity.this);
+		View view = inflater.inflate(R.layout.text, null);
+		final EditText num = (EditText) view.findViewById(R.id.jitime);
+		builder.setView(view);
+
+		// builder.setCancelable(false);
+
+		builder.setPositiveButton("提交", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				String temp = num.getText().toString().trim();
+				time = Integer.parseInt(temp);
+				System.out.println(time);
+				new JiTime(time).start();
+			}
+		});
+
+		builder.create().show();
+
+	}
+
+	/**
+	 * 
+	 * ClassName:JiTime Function: 计时的线程 Reason: TODO ADD REASON
+	 *
+	 * @author view
+	 * @version BluetoothFuntion
+	 * @since Ver 1.1
+	 * @Date 2015 2015年8月31日 下午3:43:59
+	 *
+	 * @see
+	 */
+	public class JiTime extends Thread {
+		int num = 0;
+
+		public JiTime(int num) {
+			this.num = num;
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void run() {
+			try {
+				System.out.println("延时开始");
+				Thread.sleep(num);
+				Message msg = Message.obtain();
+				// 发送消息的类型 obj表示 Object
+				msg.obj = "计时";
+				// 发送消息
+				handler.sendMessage(msg);
+
+			} catch (InterruptedException e) {
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			super.run();
+		}
+	}
+
+	/**
+	 * 消息机制 用于吧接收到的消息加载到当前的布局里面
+	 */
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			long[] pattern = { 100, 400, 100, 400 };
+			String s = (String) msg.obj;
+			System.out.println("SSSSSSSSSSSSS" + s);
+			// 获取电量的判断
+			if (s.substring(s.indexOf(":") + 1).trim().equals("1")) {
+				battery.setText("电量剩余：" + s.substring(0, s.indexOf(":")).trim());
+				System.out.println("电量是否传递");
+				new DianLiangThread().start();
+			}
+			if (s.substring(s.indexOf(":") + 1).trim().equals("2")) {
+				
+				 edit.setText("今天的运动量："+s.substring(0,s.indexOf(":")).trim());
+				str = s.substring(0, s.indexOf(":")).trim();
+				System.out.println("str    :"+str);
+				sql_step(str);
+			}
+			/**
+			 * 设置获取闹钟按钮的
+			 */
+
+			if (s.equals("获取电量")) {
+
+				battery.setText("获取电量");
+			}
+			if (s.equals("计时")) {
+
+				SendData.dataInit(Changliang.SHAKE);
+			}
+			switch (s) {
+			case Changliang.SEND:// 目前就是一个链接测试
+				System.out.println("现在正在服务里面，正在进行连接");
+
+				SendData.dataInit(edit.getText().toString() + ":2");
+				break;
+
+			case Changliang.SHAKE:// 震动
+
+				vibrator.vibrate(pattern, 2);
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+			case Changliang.CANCALSHAKE:// 取消震动
+				vibrator.cancel();
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+			case Changliang.LOCK:// 锁定手机
+				myLock();
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+			case Changliang.UNLOCK:// 解锁手机
+				myUnLock();
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+			case Changliang.ALARM:// 手机闹铃 这里包括闹铃的启动与取消
+
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+			case Changliang.BATTERYNUM:// 电量的返回
+				System.out.println("获取电量");
+				getEnergy(battery);
+				Toast.makeText(getApplicationContext(), s, 0).show();
+				break;
+
+			default:
+				break;
+			}
+
+		};
+	};
+
+	/**
+	 * 
+	 * ClassName:BlueThread Function: 创建一个线程执行接收连接过程 Reason: TODO ADD REASON
+	 *
+	 * @author view
+	 * @version BluetoothFuntion
+	 * @since Ver 1.1
+	 * @Date 2015 2015年8月24日 上午11:32:02
+	 *
+	 * @see
+	 */
+	private class BlueThread extends Thread {
+
+		private InputStream is;
+
+		public BlueThread() {
+
+			try {
+				// 此方法用来创建BluetoothServerSocket的对象
+				// 第一个参数表示蓝牙服务的名称，可以是任意字符串
+				// 第二个参数是UUID
+				bluetoothServerSocket = bluetoothAdapter.listenUsingRfcommWithServiceRecord(Changliang.NAME,
+						Changliang.MY_UUID);
+			} catch (IOException e) {
+
+			}
+		}
+
+		public void run() {
+
+			try {
+				// 通过BluetoothServerSocket.accept();方法收到客户端的请求后，
+				// accept()方法会返回一个BluetoothSocket对象，可以通过该对象获得读写数据的InputStream和OutputStream对象
+				// 等待接受蓝牙客户端的请求
+				bluetoothSocket = bluetoothServerSocket.accept();
+				
+				// 通过循环不断接收客户端发过来的数据。如果客户端暂时没发数据，则read方法处于阻塞状态
+				while (!exit) {
+					is = bluetoothSocket.getInputStream();
+					os = bluetoothSocket.getOutputStream();
+					byte[] buffer = new byte[2048];
+					int count = is.read(buffer);
+
+					String recvData = new String(buffer, 0, count, "utf-8");
+					// 向消息机制里面发送数据
+					// message 发送消息的承载体
+					Message msg = Message.obtain();
+					// 发送消息的类型 obj表示 Object
+					msg.obj = recvData;
+					// 发送消息
+					handler.sendMessage(msg);
+				}
+
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
+	/**
+	 * 获取手机电量
+	 */
+
+	public void getEnergy(View v) {
+
+		IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+		ThreeMainActivity.this.registerReceiver(receiver1, filter);
+
+	}
+
+	// **********************************注册电池的广播*********************
+	// private class BatteryReceiver extends BroadcastReceiver {
+	private BroadcastReceiver receiver1 = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			System.out.println("电量电量广播");
+			String BatteryStatus = ""; // 电池状态
+			String BatteryTemp = ""; // 电池使用情况
+
+			int current = intent.getExtras().getInt("level");// 获得当前电量
+			int total = intent.getExtras().getInt("scale");// 获得总电量
+			System.out.println("获得当前电量" + current);
+
+			SendData.dataInit(current + ":1");
+			ThreeMainActivity.this.unregisterReceiver(receiver1);
+			int temperature = intent.getIntExtra("temperature", 0); // 温度的单位是10℃
+			String technology = intent.getStringExtra("technology"); // 电池技术，
+			int percent = current * 100 / total;
+			String phoneData = ("电池技术 : " + technology + BatteryStatus + BatteryTemp + "现在的电量是" + percent + "% 温度"
+					+ temperature);
+			System.out.println("phoneData    " + phoneData);
+		}
+	};
+
+	/************************* 改变电池的显示 ****/
+	private class DianLiangThread extends Thread {
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(3000);
+
+				Message msg = Message.obtain();
+				// 发送消息的类型 obj表示 Object
+				msg.obj = "获取电量";
+				// 发送消息
+				handler.sendMessage(msg);
+
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+
+			}
+
+			super.run();
+
+		}
+
+	}
+
+
+	
+	
+	/**
+	 * 屏幕锁定部分
+	 */
+	private DevicePolicyManager mDevicePolicyManager;
+	private ComponentName mComponentName;
+
+	// 锁屏
+	public void myLock() {
+		// 获得设备管理服务
+		mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+		// LockReceiver继承自DeviceAdminReceiver
+		mComponentName = new ComponentName(this, com.aalj35.aa11.Receiver.LockReceiver.class);
+		// 判断是否有权限
+		if (mDevicePolicyManager.isAdminActive(mComponentName)) {
+			mDevicePolicyManager.lockNow();
+			// 下面两行都不好使，在android4.2上
+			// android.os.Process.killProcess(android.os.Process.myPid());
+			// System.exit(0);
+		} else {
+			activeManager();
+		}
+	}
+
+	private void activeManager() {
+		// 激活设备管理器获取权限
+		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mComponentName);
+		intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "传说中的一键锁屏");
+		startActivity(intent);
+
+	}
+
+	public void myUnLock() {
+		// 屏幕解锁
+		// KeyguardManager keyguardManager = (KeyguardManager)
+		// getSystemService(KEYGUARD_SERVICE);
+		// KeyguardLock keyguardLock = keyguardManager.newKeyguardLock(MY_TAG);
+		// keyguardLock.disableKeyguard(); //Can not Uses
+		KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+		// KeyguardManager.KeyguardLock kl = km.newKeyguardLock("unLock");
+		KeyguardLock keyguardLock = km.newKeyguardLock("unLock");
+		// 解锁
+		keyguardLock.disableKeyguard();
+
+		// 获取电源管理器对象
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		// 获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
+		PowerManager.WakeLock wl = pm
+				.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, "bright");
+		// 点亮屏幕
+		wl.acquire();
+		// 释放
+		wl.release();
+	}
+
+	/**
+	 *  
+	 * sql_step:(查询按钮，实现跳转到数据显示页面)
+	 *
+	 * @param  @param v    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void sql_step(View v) {
+
+		Intent intent = new Intent();
+		intent.setClass(ThreeMainActivity.this, SQLite_Activity.class);
+		ThreeMainActivity.this.startActivity(intent);
+
+	}
+	/**
+	 * 
+	 * sql_step:(对获得的数据进行储存)
+	 * TODO(这里描述这个方法适用条件 – 可选)
+	 * TODO(这里描述这个方法的执行流程 – 可选)
+	 * TODO(这里描述这个方法的使用方法 – 可选)
+	 * TODO(这里描述这个方法的注意事项 – 可选)
+	 *
+	 * @param  @param v    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void sql_step(String v) {
+		Date date = new Date();
+		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+		
+		if (str.equals("")) {
+			stepnum = 0;
+		} else {
+			stepnum = Integer.parseInt(v);
+		}
+		
+		SQlite helper = new SQlite(this);
+		SQLiteDatabase db = helper.getReadableDatabase();
+		String sql = "insert into step(stepnum,time) values('" + stepnum + "','" + time + "') ";
+		db.execSQL(sql);
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,71 @@
+/**
+ * Lock2Unlock.java
+ * com.aalj35.aa11.utils
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2015年9月1日 		view
+ *
+ * Copyright (c) 2015, TNT All Rights Reserved.
+*/
+
+package com.aalj35.aa11.utils;
+
+import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+
+/**
+ * ClassName:Lock2Unlock
+ * Function: TODO ADD FUNCTION
+ * Reason:	 TODO ADD REASON
+ *
+ * @author   view
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2015年9月1日		上午9:56:53
+ *
+ * @see 	 
+
+ */
+public class Lock2Unlock extends Activity{
+	
+	
+	/**
+	 * 屏幕锁定部分
+	 */
+	private DevicePolicyManager mDevicePolicyManager;
+	private ComponentName mComponentName;
+
+	// 锁屏
+	public void myLock() {
+		// 获得设备管理服务
+		mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+		// LockReceiver继承自DeviceAdminReceiver
+		mComponentName = new ComponentName(this, com.aalj35.aa11.Receiver.LockReceiver.class);
+		// 判断是否有权限
+		if (mDevicePolicyManager.isAdminActive(mComponentName)) {
+			mDevicePolicyManager.lockNow();
+			// 下面两行都不好使，在android4.2上
+			// android.os.Process.killProcess(android.os.Process.myPid());
+			// System.exit(0);
+		} else {
+			activeManager();
+		}
+	}
+
+	private void activeManager() {
+		// 激活设备管理器获取权限
+		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mComponentName);
+		intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "传说中的一键锁屏");
+		startActivity(intent);
+
+	}
+
+}
+

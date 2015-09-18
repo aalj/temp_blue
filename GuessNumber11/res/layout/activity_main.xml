@@ -1,0 +1,193 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/xone"
+    android:orientation="vertical"
+    tools:context=".NormalActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvTopic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="  随机题目"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="得分:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvScoreContent"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#ff0000"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnRule"
+            android:layout_width="33dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/book5"
+            android:onClick="rule"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="题目内容"
+        android:textColor="#ff0000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvContent1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="come on"
+        android:textColor="#ff0000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="  玩家结果输入框"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="80"
+            android:digits="0123456789.-+"
+            android:ems="10"
+            android:gravity="center"
+            android:textColor="#ff0000"
+            android:textSize="25sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/yes"
+            android:gravity="center"
+            android:onClick="click"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    %为取模运算（取余数）"
+        android:textColor="#ff0000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  正确答案"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvAnswerContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:text=""
+        android:textColor="#ff0000"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/nextwubaidi"
+        android:gravity="center"
+        android:onClick="next"
+        android:text="     " />
+
+   
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.29"
+        android:orientation="horizontal" >
+
+       
+    </LinearLayout>
+
+    <ToggleButton
+        android:id="@+id/tbMusic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/music_on"
+        android:checked="true"
+        android:onClick="mute"
+        android:textOff="音乐关"
+        android:textOn="音乐开"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/againwibaidi"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:onClick="reset" />
+
+     <Button
+            android:id="@+id/btnSave"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/savewubaidi"
+            android:gravity="center"
+            android:onClick="save"
+            android:textSize="13sp" />
+
+</LinearLayout>

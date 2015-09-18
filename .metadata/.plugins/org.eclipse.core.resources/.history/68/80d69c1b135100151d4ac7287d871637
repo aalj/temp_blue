@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    tools:context=".ThreeMainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/linear_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="6"
+        android:background="@drawable/day_circle_1_top"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit"
+            android:layout_centerHorizontal="true"
+            android:textColor="#999999"
+            android:textSize="30sp"
+            android:text="步" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="97dp"
+            android:text="7000"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/edit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="67dp"
+            android:text=yun'dong" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="3.5"
+        android:orientation="vertical" >
+         <Button
+            android:id="@+id/cancalshake"
+            android:layout_width="fill_parent"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/unshake"
+            android:onClick="onclick"
+            android:text="连接" />
+
+        <Button
+            android:id="@+id/data"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shuju_button"
+            android:onClick="onclick"
+            android:text="获取运动量" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_marginTop="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/search"
+            android:onClick="sql_step"
+            android:text="查询" />
+
+        <Button
+            android:layout_marginTop="2dp"
+            android:id="@+id/incomming"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/call_button"
+            android:onClick="onclick"
+            android:text="来电提醒" />
+
+        <Button
+            android:id="@+id/clock"
+            android:layout_marginTop="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/naoling_button"
+            android:onClick="onclick"
+            android:text="闹钟" />
+
+        <Button
+            android:layout_marginTop="2dp"
+            android:id="@+id/electric"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/dianlaing_button"
+            android:onClick="onclick"
+            android:text="获取电量" />
+
+        <Button
+            android:id="@+id/lock"
+            android:layout_marginTop="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/lock_button"
+            android:onClick="onclick"
+            android:text="锁屏" />
+
+       
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ThreeMainActivity" >
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#cccccc"
+        android:hint="请输入要传输的数据" />
+
+    <Button
+        android:id="@+id/data"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shuju_button"
+        android:onClick="onclick"
+        android:text="数据传输" />
+
+    <Button
+        android:id="@+id/incomming"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/call_button"
+        android:onClick="onclick"
+        android:text="来电提醒" />
+
+    <Button
+        android:id="@+id/clock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/naoling_button"
+        android:onClick="onclick"
+        android:text="闹钟" />
+
+    <Button
+        android:id="@+id/electric"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dianlaing_button"
+        android:onClick="onclick"
+        android:text="获取电量" />
+
+    <Button
+        android:id="@+id/lock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lock_button"
+        android:onClick="onclick"
+        android:text="锁屏" />
+
+    <Button
+        android:id="@+id/shake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick"
+        android:text="震动" />
+
+    <Button
+        android:id="@+id/cancalshake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick"
+        android:text="取消震动" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sql_step"
+        android:text="查询" />
+
+</LinearLayout>

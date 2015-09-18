@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ThreeMainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linear_1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="2"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#cccccc"
+            android:hint="请输入要传输的数据"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+       
+
+       
+
+       
+
+       
+
+    <Button
+            android:id="@+id/lock"
+            android:layout_marginTop="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/lock_button"
+            android:onClick="onclick"
+            android:text="锁屏" />
+
+        
+
+        <Button
+            android:id="@+id/cancalshake"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/b_1_1"
+            android:onClick="onclick"
+            android:text="取消震动" />
+    </LinearLayout>
+
+</LinearLayout>
